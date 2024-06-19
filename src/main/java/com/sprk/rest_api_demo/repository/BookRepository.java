@@ -2,17 +2,12 @@ package com.sprk.rest_api_demo.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.sprk.rest_api_demo.entity.Book;
 
-public interface BookRepository {
+@Repository
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    Book saveBook(Book book);
-
-    List<Book> findListOfBooks();
-
-    Book findBookById(int id);
-
-    void delete(Book dbBook);
-
-    Book updateBook(Book newBook);
 }

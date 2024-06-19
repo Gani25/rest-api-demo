@@ -76,7 +76,7 @@ public class BookController {
         Book dbBook = bookService.findById(bookId);
         if (dbBook != null) {
 
-            newBook.setBookId(dbBook.getBookId());
+            newBook.setBookId(bookId);
 
             Book updatedBook = bookService.update(newBook);
 

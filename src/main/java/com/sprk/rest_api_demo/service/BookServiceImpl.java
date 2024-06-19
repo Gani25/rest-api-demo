@@ -1,6 +1,7 @@
 package com.sprk.rest_api_demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,24 +18,28 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    // @Transactional
     public Book saveBook(Book book) {
 
-        return bookRepository.saveBook(book);
+        return bookRepository.save(book);
     }
 
     @Override
     public List<Book> getListOfBooks() {
-        return bookRepository.findListOfBooks();
+        return bookRepository.findAll();
     }
 
     @Override
     public Book findById(int id) {
-        return bookRepository.findBookById(id);
+        Optional<Book> dbBook = bookRepository.findById(id);
+        if (dbBook.isPresent()) {
+            return dbBook.get();
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    @Transactional
     public void deleteDbBook(Book dbBook) {
         bookRepository.delete(dbBook);
     }
@@ -42,7 +47,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book update(Book newBook) {
-        Book updatedBook = bookRepository.updateBook(newBook);
+        Book updatedBook = bookRepository.save(newBook);
         return updatedBook;
     }
 }
